@@ -8,15 +8,15 @@ import {
   Delete,
 } from '@nestjs/common';
 import { TavarsService } from './tavars.service';
-import { CreateTavarDto } from './dto/create-tavar.dto';
-import { UpdateTavarDto } from './dto/update-tavar.dto';
+import { CreateTavarsDto } from 'y/shared';
+import { UpdateTavarDto } from 'y/shared/dto/update.tavars.dto';
 
 @Controller('tavars')
 export class TavarsController {
   constructor(private readonly tavarsService: TavarsService) {}
 
   @Post()
-  create(@Body() createTavarDto: CreateTavarDto) {
+  create(@Body() createTavarDto: CreateTavarsDto) {
     return this.tavarsService.create(createTavarDto);
   }
 

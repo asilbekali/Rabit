@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateTavarDto } from './dto/create-tavar.dto';
-import { UpdateTavarDto } from './dto/update-tavar.dto';
 import { ClientProxy } from '@nestjs/microservices';
+import { CreateTavarsDto } from 'y/shared';
+import { UpdateTavarDto } from 'y/shared/dto/update.tavars.dto';
 
 @Injectable()
 export class TavarsService {
   constructor(@Inject('PRODS') private readonly prods: ClientProxy) {}
-  create(createTavarDto: CreateTavarDto) {
-    return 'This action adds a new tavar';
+  create(createTavarDto: CreateTavarsDto) {
+    return this.prods.send('createTavar', createTavarDto);
   }
 
   findAll() {
@@ -16,14 +16,14 @@ export class TavarsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} tavar`;
+    return this.prods.send('findOneTavar', { id });
   }
 
   update(id: number, updateTavarDto: UpdateTavarDto) {
-    return `This action updates a #${id} tavar`;
+    return this.prods.send('updateTavar', { id, updateTavarDto });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} tavar`;
+    return this.prods.send('updateTavar', { id });
   }
 }

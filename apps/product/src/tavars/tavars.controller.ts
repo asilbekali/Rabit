@@ -1,15 +1,15 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { TavarsService } from './tavars.service';
-import { CreateTavarDto } from './dto/create-tavar.dto';
-import { UpdateTavarDto } from './dto/update-tavar.dto';
+import { CreateTavarsDto } from 'y/shared';
+import { UpdateTavarDto } from 'y/shared/dto/update.tavars.dto';
 
 @Controller()
 export class TavarsController {
   constructor(private readonly tavarsService: TavarsService) {}
 
   @MessagePattern('createTavar')
-  create(@Payload() createTavarDto: CreateTavarDto) {
+  create(@Payload() createTavarDto: CreateTavarsDto) {
     return this.tavarsService.create(createTavarDto);
   }
 

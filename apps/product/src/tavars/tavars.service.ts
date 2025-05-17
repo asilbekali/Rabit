@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTavarDto } from './dto/create-tavar.dto';
-import { UpdateTavarDto } from './dto/update-tavar.dto';
-
+import { CreateTavarsDto } from 'y/shared';
+import { UpdateTavarDto } from 'y/shared/dto/update.tavars.dto';
+import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class TavarsService {
-  create(createTavarDto: CreateTavarDto) {
+  constructor(private readonly prisma: PrismaService) {}
+  create(createTavarDto: CreateTavarsDto) {
     return 'This action adds a new tavar';
   }
 
   findAll() {
-    return ['apple', 'nimadur', 'salom', 'qalay'];
+    return this.prisma.tavars.findMany();
+    return 'dfd';
   }
 
   findOne(id: number) {
