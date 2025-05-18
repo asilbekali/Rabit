@@ -11,7 +11,6 @@ export class TavarsService {
   }
 
   findAll() {
-    console.log('servicega sorov keldi');
     return this.prods.send('findAllTavars', {});
   }
 
@@ -24,6 +23,6 @@ export class TavarsService {
   }
 
   remove(id: number) {
-    return this.prods.send('updateTavar', { id });
+    return this.prods.send('removeTavar', { id });
   }
 }

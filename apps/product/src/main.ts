@@ -3,6 +3,7 @@ import { ProductModule } from './product.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
+  console.log('ishladi main tcp');
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     ProductModule,
     {
@@ -13,6 +14,7 @@ async function bootstrap() {
       },
     },
   );
+
   await app.listen();
 }
 bootstrap();

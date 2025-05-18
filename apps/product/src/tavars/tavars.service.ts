@@ -1,28 +1,53 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateTavarsDto } from 'y/shared';
 import { UpdateTavarDto } from 'y/shared/dto/update.tavars.dto';
 import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class TavarsService {
-  constructor(private readonly prisma: PrismaService) {}
-  create(createTavarDto: CreateTavarsDto) {
-    return 'This action adds a new tavar';
+  constructor(private prisma: PrismaService) {}
+  async create(createTavarDto: CreateTavarsDto) {
+    return await this.prisma.product.create({ data: createTavarDto });
   }
 
-  findAll() {
-    return this.prisma.tavars.findMany();
-    return 'dfd';
+  async findTavars() {
+    return await this.prisma.product.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tavar`;
+  async findOne(data: number) {
+    const baza = await this.prisma.product.findFirst({
+      where: { id: data['id'] },
+    });
+
+    if (!baza) {
+      return { message: 'Produc not found' };
+    }
+    return baza;
   }
 
-  update(id: number, updateTavarDto: UpdateTavarDto) {
-    return `This action updates a #${id} tavar`;
+  async update(updateTavarDto: any) {
+    const baza = await this.prisma.product.findFirst({
+      where: { id: updateTavarDto.id },
+    });
+    if (!baza) {
+      return { message: 'Produc not found' };
+    }
+
+    return await this.prisma.product.update({
+      where: { id: updateTavarDto.id },
+      data: { name: updateTavarDto.name },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tavar`;
+  async remove(id: number) {
+    const baza = await this.prisma.product.findFirst({
+      where: { id: id },
+    });
+    if (!baza) {
+      return { message: 'Produc not found' };
+    }
+
+    return {
+      ProductDeleted: await this.prisma.product.delete({ where: { id: id } }),
+    };
   }
 }

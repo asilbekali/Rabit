@@ -15,8 +15,7 @@ export class TavarsController {
 
   @MessagePattern('findAllTavars')
   findAll() {
-    console.log('rbbitmq ni controllergisa sorov keldi');
-    return this.tavarsService.findAll();
+    return this.tavarsService.findTavars();
   }
 
   @MessagePattern('findOneTavar')
@@ -26,11 +25,11 @@ export class TavarsController {
 
   @MessagePattern('updateTavar')
   update(@Payload() updateTavarDto: UpdateTavarDto) {
-    return this.tavarsService.update(updateTavarDto.id, updateTavarDto);
+    return this.tavarsService.update(updateTavarDto);
   }
 
   @MessagePattern('removeTavar')
   remove(@Payload() id: number) {
-    return this.tavarsService.remove(id);
+    return this.tavarsService.remove(id['id']);
   }
 }

@@ -1,6 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateTavarsDto } from './tavars.create.dto';
+import { IsOptional, IsString } from 'class-validator';
 
-export class UpdateTavarDto extends PartialType(CreateTavarsDto) {
-  id: number;
+export class UpdateTavarDto {
+  @IsOptional()
+  @IsString()
+  name?: string;
 }
