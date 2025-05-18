@@ -46,8 +46,6 @@ export class TavarsService {
       return { message: 'Produc not found' };
     }
 
-    return {
-      ProductDeleted: await this.prisma.product.delete({ where: { id: id } }),
-    };
+    return {ProductDeleted:  await this.prisma.product.delete({ where: { id: id } })}
   }
 }

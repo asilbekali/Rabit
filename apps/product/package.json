@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@nestjs/mapped-types": "*",
     "@prisma/client": "^6.8.2"
   },
   "devDependencies": {
