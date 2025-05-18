@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateUserDto } from 'y/shared';
-
+import { CreateUserDto, UpdateUserDto } from 'y/shared';
 @Injectable()
 export class UserService {
   constructor(@Inject('USERS') private readonly users: ClientProxy) {}
@@ -15,6 +14,6 @@ export class UserService {
   }
 
   remove(id: number) {
-    return this.users.send('removeUser', {id});
+    return this.users.send('removeUser', { id });
   }
 }

@@ -1,39 +1,31 @@
-import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from 'y/shared';
-@ApiTags('Users')
-@Controller()
+
+@Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @ApiOperation({ summary: 'Create a new user' })
-  @ApiResponse({
-    status: 201,
-    description: 'User created',
-    type: CreateUserDto,
-  })
-  @MessagePattern('createUser')
-  create(@Payload() createUserDto: CreateUserDto) {
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
-  @ApiOperation({ summary: 'Get all users' })
-  @ApiResponse({
-    status: 200,
-    description: 'Return all users',
-    type: [CreateUserDto],
-  })
-  @MessagePattern('findAllUser')
+  @Get()
   findAll() {
     return this.userService.findAll();
   }
 
-  @ApiOperation({ summary: 'Remove user by ID' })
-  @ApiResponse({ status: 200, description: 'User removed' })
-  @MessagePattern('removeUser')
-  remove(@Payload() id: number) {
-    return this.userService.remove(id);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.userService.remove(+id);
   }
 }
